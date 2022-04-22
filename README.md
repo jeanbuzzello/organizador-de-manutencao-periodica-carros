@@ -4,7 +4,7 @@ Permitir o cadastro das manutenções periódicas, com informações de data, de
 
 # Protótipo
 
-https://www.figma.com/file/qieWkv4qJCJET9gg4kwD3M/Untitled?node-id=21%3A6
+https://www.figma.com/file/qieWkv4qJCJET9gg4kwD3M/PROTOTIPO?node-id=13%3A4
 
 
 # Checklist
