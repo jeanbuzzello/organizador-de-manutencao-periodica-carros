@@ -3,15 +3,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Manutencao } from '../model/manutencao';
 import { Shared } from './../util/shared';
-
+import { ManutencaoPromiseService } from './manutencao-promise.service';
 
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.css']
+  styleUrls: ['./formulario.component.css'],
+  providers: [ManutencaoPromiseService],
 })
 export class FormularioComponent implements OnInit {
-
   @ViewChild('form') form!: NgForm;
 
   manutencao!: Manutencao;
@@ -24,47 +24,73 @@ export class FormularioComponent implements OnInit {
   isSuccess!: boolean;
   message!: string;
 
-
   constructor(
-    private manutencaoService:ManutencaoService
-
-  ) { }
+    private manutencaoService: ManutencaoService,
+    private manutencaoPromiseService: ManutencaoPromiseService
+  ) {}
 
   ngOnInit(): void {
     Shared.initializeWebStorage();
-    this.manutencao = new Manutencao('','');
-    this.manutencoes = this.manutencaoService.getManutencoes();
+    this.manutencao = new Manutencao('', '');
+    // this.manutencoes = this.manutencaoService.getManutencoes();
+
+    this.manutencaoPromiseService
+      .getAll()
+      .then((value) => {
+        console.log(value);
+        this.manutencoes = value;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   onSubmit() {
     this.isSubmitted = true;
+    this.manutencaoPromiseService
+      .save(this.manutencao)
+      .then((value) => {
+        console.log(value);
 
-    try {
-      if (!this.manutencaoService.isExist(this.manutencao.titulo)) {
+        try {
+          if (!this.manutencaoService.isExist(value!.titulo)) {
+            this.manutencaoService.save(value!);
+          } else {
+            this.manutencaoService.update(value!);
+          }
+        } catch (err) {
+          alert(err);
+        }
 
+        this.isShowMessage = true;
+        this.isSuccess = true;
+        this.message = 'Cadastro realizado com sucesso!';
+        this.form.reset();
+        this.manutencao = new Manutencao('', '');
 
-        this.manutencaoService.save(this.manutencao);
-      } else {
-
-        this.manutencaoService.update(this.manutencao);
-      }
-    } catch (err) {
-      alert(err);
-    }
-
-    this.isShowMessage = true;
-    this.isSuccess = true;
-    this.message = 'Cadastro realizado com sucesso!';
-    this.form.reset();
-    this.manutencao = new Manutencao('','');
-    this.manutencoes = this.manutencaoService.getManutencoes();
+        //this.manutencoes = this.manutencaoService.getManutencoes();
+        this.manutencaoPromiseService
+          .getAll()
+          .then((value) => {
+            console.log(value);
+            this.manutencoes = value;
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      })
+      .catch((e) => {
+        console.log(e);
+        this.isShowMessage = true;
+        this.isSuccess = false;
+        this.message = e;
+      });
   }
 
   onEdit(manutencao: Manutencao) {
     let clone = Manutencao.clone(manutencao);
     this.manutencao = clone;
   }
-
 
   onDelete(titulo: string) {
     let confirmation = window.confirm(
@@ -85,7 +111,15 @@ export class FormularioComponent implements OnInit {
       this.message = 'O item não pode ser removido';
     }
 
-    this.manutencoes = this.manutencaoService.getManutencoes();
+    // this.manutencoes = this.manutencaoService.getManutencoes();
+    this.manutencaoPromiseService
+      .getAll()
+      .then((value) => {
+        console.log(value);
+        this.manutencoes = value;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
-
 }
