@@ -39,9 +39,7 @@
 
     <div class="input-field col s12 16">
       <input id="input-dt_manutencao" name="input-dt_manutencao" type="date" class="validate"
-        [(ngModel)]="this.manutencao.dt_manutencao"
-        required
-        />
+        [(ngModel)]="this.manutencao.dt_manutencao" required />
       <label for="input-dt_manutencao">Data da manutenção</label>
     </div>
 
@@ -63,22 +61,30 @@
   </thead>
   <tbody>
     <tr *ngFor="let u of manutencoes">
-      <td>{{ u.titulo }}</td>
-      <td>{{ u.descricao }}</td>
-      <td>{{ u.valor | currency : "BRL" }}</td>
-      <td>{{ u.dt_manutencao }}</td>
-      <td class="right">
-        <a (click)="onEdit(u)">
 
-          <small>Editar</small>|
-        </a>
 
-        <a (click)="onDelete(u.titulo)">
-          <small>Apagar</small>
+        <td>{{ u.titulo | titlecase }}</td>
+        <td>{{ u.descricao | uppercase }}</td>
+        <td>
+          <span *ngIf="u.valor > 100; else elseBlock" style="color:red;">{{ u.valor | currency : "BRL" }}</span>
+          <ng-template #elseBlock><span style="color:blue;">**</span></ng-template>
 
-        </a>
-      </td>
+        </td>
+
+        <td>{{ u.dt_manutencao | date : "dd/MM/yyy" }}</td>
+        <td class="right">
+          <a (click)="onEdit(u)">
+
+            <small>Editar</small>|
+          </a>
+
+          <a (click)="onDelete(u.titulo)">
+            <small>Apagar</small>
+
+          </a>
+        </td>
 
     </tr>
+
   </tbody>
 </table>
