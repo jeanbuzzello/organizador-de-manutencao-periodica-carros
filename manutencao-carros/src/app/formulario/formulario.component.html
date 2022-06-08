@@ -49,6 +49,7 @@
 </div>
 
 <h5>Manutenções cadastrados</h5>
+<div *ngIf="(manutencoes$ | async) as manutencoes">
 <table class="highlight" *ngIf="manutencoes && manutencoes!.length > 0">
   <thead>
     <tr>
@@ -59,7 +60,8 @@
       <th></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody >
+
     <tr *ngFor="let u of manutencoes">
 
 
@@ -88,3 +90,4 @@
 
   </tbody>
 </table>
+</div>

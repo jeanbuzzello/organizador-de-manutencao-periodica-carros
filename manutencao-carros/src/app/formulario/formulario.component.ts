@@ -5,6 +5,8 @@ import { Manutencao } from '../model/manutencao';
 import { Shared } from './../util/shared';
 import { ManutencaoPromiseService } from './manutencao-promise.service';
 
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
@@ -15,7 +17,7 @@ export class FormularioComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
 
   manutencao!: Manutencao;
-  manutencoes?: Manutencao[];
+  manutencoes$?: Observable<Manutencao[] | undefined>;
 
   userRepassword: string = '';
 
@@ -32,17 +34,8 @@ export class FormularioComponent implements OnInit {
   ngOnInit(): void {
     Shared.initializeWebStorage();
     this.manutencao = new Manutencao('', '');
-    // this.manutencoes = this.manutencaoService.getManutencoes();
 
-    this.manutencaoPromiseService
-      .getAll()
-      .then((value) => {
-        console.log(value);
-        this.manutencoes = value;
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    this.manutencoes$ = this.manutencaoPromiseService.getAll();
   }
 
   onSubmit() {
@@ -68,16 +61,7 @@ export class FormularioComponent implements OnInit {
         this.form.reset();
         this.manutencao = new Manutencao('', '');
 
-        //this.manutencoes = this.manutencaoService.getManutencoes();
-        this.manutencaoPromiseService
-          .getAll()
-          .then((value) => {
-            console.log(value);
-            this.manutencoes = value;
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        this.manutencoes$ = this.manutencaoPromiseService.getAll();
       })
       .catch((e) => {
         console.log(e);
@@ -111,15 +95,6 @@ export class FormularioComponent implements OnInit {
       this.message = 'O item não pode ser removido';
     }
 
-    // this.manutencoes = this.manutencaoService.getManutencoes();
-    this.manutencaoPromiseService
-      .getAll()
-      .then((value) => {
-        console.log(value);
-        this.manutencoes = value;
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    this.manutencoes$ = this.manutencaoPromiseService.getAll();
   }
 }
