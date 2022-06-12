@@ -1,5 +1,0 @@
-{
-  "/manutencoes/type/:t":"/manutencoes?type=:t",
-  "/manutencoes":"/manutencoes"
-
-}
