@@ -14,6 +14,7 @@ import { Componente06Component } from './componente06/componente06.component';
 import { FormularioComponent } from './formulario/formulario.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ListagemComponent } from './listagem/listagem.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     Componente04Component,
     Componente05Component,
     Componente06Component,
-    FormularioComponent
+    FormularioComponent,
+    ListagemComponent
 
   ],
   imports: [

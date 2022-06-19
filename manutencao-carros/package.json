@@ -4,11 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "json:server": "json-server --watch db.json",
-    "json:server:routes": "json-server --watch db.json --routes routes.json"
+    "json:server:routes": "json-server --watch db.json --routes routes.json",
+    "deploy2" : "ng deploy --repo=https://github.com/jeanbuzzello/organizador-de-manutencao-periodica-carros.git --base-href=/organizador-de-manutencao-periodica-carros/",
+    "deploy" :"npm run build & npm run ghpages",
+    "ghpages": "angular-cli-ghpages --dir=dist/manutencao-carros"
   },
   "private": true,
   "dependencies": {

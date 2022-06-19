@@ -1,6 +1,7 @@
 export class Manutencao {
 
   titulo: string;
+  id: number;
   descricao: string;
   valor: number;
   dt_manutencao: Date;
@@ -11,6 +12,7 @@ export class Manutencao {
 
 
     this.titulo = titulo;
+    this.id = + new Date();
     this.descricao = '';
     this.valor = 0;
     this.dt_manutencao = new Date();

@@ -1,3 +1,5 @@
+import { FormularioComponent } from './formulario/formulario.component';
+import { ListagemComponent } from './listagem/listagem.component';
 import { Componente03Component } from './componente03/componente03.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,9 +10,10 @@ import { Componente06Component } from './componente06/componente06.component';
 
 const routes:Routes = [
 
-  {path : '', component : Componente03Component},
-  {path : 'component4', component : Componente04Component},
-  {path : 'component6/:id', component: Componente06Component}
+  {path : '', component : ListagemComponent},
+  {path : 'formulario-manutencao', component : FormularioComponent},
+  {path : 'component6/:id', component: Componente06Component},
+  {path : 'formulario-manutencao/:id', component: FormularioComponent}
 
 ];
 
