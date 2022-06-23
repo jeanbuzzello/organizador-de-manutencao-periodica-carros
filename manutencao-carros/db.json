@@ -6,6 +6,13 @@
       "descricao": "Troca de óleo 5W30 e filtro",
       "valor": 300,
       "dt_manutencao": "2022-06-19T18:55:07.159Z"
+    },
+    {
+      "titulo": "Troca pneus",
+      "id": 1655677144478,
+      "descricao": "4 pneus 165 70 13",
+      "valor": 1000,
+      "dt_manutencao": "2022-06-02"
     }
   ]
 }
